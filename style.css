@@ -146,16 +146,16 @@ img {
   border-radius: 12px;
 }
 
-/* ==== photo gallery (普通网格) ==== */
+/* ==== photo gallery  ==== */
 .gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center; /* 居中对齐 */
+  justify-content: center; 
 }
 
 .gallery img {
-  width: 30%;       /* 每张宽度大约 30% */
-  height: auto;     /* 保持原始比例 */
+  width: 30%;       
+  height: auto;     
   border-radius: 12px;
 }
