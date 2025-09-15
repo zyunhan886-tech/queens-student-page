@@ -9,7 +9,18 @@ body {
   border-radius:12px;
   padding:1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-header { background:var(--blue); color:#fff; padding:1rem; }
+header {
+  background: var(--blue);
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  height: 50px;
+}
 main { background:#fff; color:#1a1a1a; max-width:900px; margin:2rem auto; border-radius:12px; padding:1.5rem; }
 a { color: var(--blue); }
 /* === personalize below by changing colors or spacing === */
