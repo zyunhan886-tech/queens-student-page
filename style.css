@@ -148,14 +148,32 @@ img {
 
 /* ==== photo gallery  ==== */
 .gallery {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1rem;                             
 }
 
 .gallery img {
-  width: 30%;       
-  height: auto;     
+  width: 100%;
+  height: auto;       /* 保持比例 */
   border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+}
+
+/* 小屏幕自动变成两列、一列 */
+@media (max-width: 980px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
 }
