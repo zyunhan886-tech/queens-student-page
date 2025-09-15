@@ -12,56 +12,41 @@ html, body {
   background: var(--red);      /* 红色主背景 */
   color: #fff;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* ===== 星星动画层（覆盖在红色背景之上，位于内容后面） ===== */
-body::before,
+/* ==== 星空动画层（单层） ==== */
 body::after {
   content: "";
   position: fixed;
-  inset: 0;                    /* top:0; right:0; bottom:0; left:0; 的简写 */
-  z-index: -1;                 /* 放在内容后面 */
-  pointer-events: none;        /* 不影响交互 */
-  background-repeat: repeat;
+  inset: 0;
+  z-index: 0;                 /* 在红色背景之上、内容之下 */
+  pointer-events: none;
+  opacity: .6;
+
+  /* 多个小点星星 */
+  background:
+    radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.9) 50%, transparent 52%),
+    radial-gradient(2px 2px at 70% 60%, rgba(255,255,255,.8) 50%, transparent 52%),
+    radial-gradient(2px 2px at 40% 80%, rgba(255,255,255,.85) 50%, transparent 52%),
+    radial-gradient(1.8px 1.8px at 85% 25%, rgba(255,255,255,.7) 50%, transparent 52%),
+    radial-gradient(1.6px 1.6px at 10% 75%, rgba(255,255,255,.75) 50%, transparent 52%),
+    radial-gradient(1.5px 1.5px at 55% 45%, rgba(255,255,255,.8) 50%, transparent 52%);
   background-size: 600px 600px;
-  opacity: 0.55;               /* 星星透明度 */
+
+  animation: twinkle-move 50s linear infinite, twinkle 2.8s ease-in-out infinite;
 }
 
-/* 第一层星星（小而多，慢速漂移） */
-body::before {
-  background-image:
-    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.9) 50%, transparent 52%),
-    radial-gradient(2px 2px at 120px 80px, rgba(255,255,255,.8) 50%, transparent 52%),
-    radial-gradient(2px 2px at 200px 150px, rgba(255,255,255,.75) 50%, transparent 52%),
-    radial-gradient(2px 2px at 340px 220px, rgba(255,255,255,.85) 50%, transparent 52%),
-    radial-gradient(2px 2px at 520px 360px, rgba(255,255,255,.8) 50%, transparent 52%),
-    radial-gradient(2px 2px at 560px 120px, rgba(255,255,255,.75) 50%, transparent 52%);
-  animation: star-drift-1 40s linear infinite;
+/* 缓慢平移产生“漂浮感” */
+@keyframes twinkle-move {
+  from { background-position: 0 0; }
+  to   { background-position: 800px 900px; }
 }
 
-/* 第二层星星（稍大，缓慢闪烁） */
-body::after {
-  background-image:
-    radial-gradient(3px 3px at 70px 50px, rgba(255,255,255,.9) 50%, transparent 52%),
-    radial-gradient(3px 3px at 260px 200px, rgba(255,255,255,.9) 50%, transparent 52%),
-    radial-gradient(3px 3px at 420px 100px, rgba(255,255,255,.9) 50%, transparent 52%),
-    radial-gradient(3px 3px at 640px 300px, rgba(255,255,255,.9) 50%, transparent 52%);
-  animation: star-drift-2 55s linear infinite, twinkle 2.5s ease-in-out infinite;
-  opacity: 0.7;
-}
-
-/* 漂移与闪烁动画 */
-@keyframes star-drift-1 {
-  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
-  to   { background-position: 600px 600px, 400px 600px, 800px 600px, 600px 800px, 900px 700px, 700px 900px; }
-}
-@keyframes star-drift-2 {
-  from { background-position: 0 0, 0 0, 0 0, 0 0; }
-  to   { background-position: 800px 900px, 700px 700px, 900px 800px, 600px 1000px; }
-}
+/* 轻微闪烁 */
 @keyframes twinkle {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.85; }
+  0%, 100% { opacity: .35; }
+  50%      { opacity: .85; }
 }
 
 /* ===== 顶部横幅 ===== */
@@ -72,6 +57,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 1;  /* 保证在星星层上方 */
 }
 
 /* 可点击的校徽 logo */
@@ -84,7 +71,7 @@ header .logo {
 }
 header .logo:hover {
   transform: scale(1.08);
-  filter: drop-shadow(0 0 4px rgba(242,169,0,.6)); /* --gold 的微光效果 */
+  filter: drop-shadow(0 0 4px rgba(242,169,0,.6)); /* --gold 微光 */
 }
 
 /* ===== 中间内容卡片 ===== */
@@ -96,6 +83,8 @@ main {
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1;  /* 保证在星星层上方 */
 }
 
 /* 链接颜色与悬停 */
