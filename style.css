@@ -24,9 +24,9 @@ body::after {
   pointer-events: none;
   opacity: 0.9;
 
-  /* 两层星图：近层更亮更密，远层更暗更疏，产生深度感 */
+  /* two layer star map */
   background-image:
-    /* 近层（高密） */
+    /* primary */
     url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' width='128' height='128' viewBox='0 0 128 128'>\
   <rect width='128' height='128' fill='none'/>\
@@ -46,7 +46,7 @@ body::after {
     <circle cx='112' cy='102' r='1.0'/><circle cx='124' cy='92' r='0.9'/>\
   </g>\
 </svg>"),
-    /* 远层（低密） */
+    /* remote */
     url("data:image/svg+xml;utf8,\
 <svg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'>\
   <rect width='192' height='192' fill='none'/>\
@@ -135,13 +135,13 @@ a:hover {
   text-decoration: underline;
 }
 
-/* 标题样式 */
+/* heading style */
 h2 {
   color: var(--blue);
   font-size: 1.6rem;
 }
 
-/* 图片样式 */
+/* img style */
 img {
   border-radius: 12px;
 }
