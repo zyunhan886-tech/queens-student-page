@@ -148,14 +148,16 @@ img {
 
 /* ==== photo gallery  ==== */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 1rem;                             
+  display: flex;                 /* 横向排布 */
+  justify-content: space-between;/* 均匀分布 */
+  align-items: center;           /* 垂直居中对齐 */
+  gap: 1rem;                     /* 间距 */
 }
 
 .gallery img {
-  width: 100%;
-  height: auto;       /* 保持比例 */
+  max-height: 300px;             /* 固定最大高度 */
+  width: auto;                   /* 宽度自适应，保持比例 */
+  object-fit: contain;           /* 保持完整比例，不裁剪 */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   transition: transform .2s ease, box-shadow .2s ease;
