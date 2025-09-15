@@ -19,7 +19,7 @@ header {
 }
 
 header .logo {
-  height: 50px;
+  height: 12px;
 }
 main { background:#fff; color:#1a1a1a; max-width:900px; margin:2rem auto; border-radius:12px; padding:1.5rem; }
 a { color: var(--blue); }
