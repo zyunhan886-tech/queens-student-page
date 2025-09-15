@@ -148,9 +148,10 @@ img {
 
 /* ==== photo gallery (3列-2列-1列) ==== */
 .gallery {
-  display: grid !important;                 /* 强制用 Grid，避免被旧的 Flex 覆盖 */
-  grid-template-columns: repeat(3, minmax(260px, 1fr));
-  gap: 20px;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  grid-auto-flow: dense;   /* 关键！让图片尽量填补空隙 */
 }
 
 .gallery img {
