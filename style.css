@@ -146,19 +146,36 @@ img {
   border-radius: 12px;
 }
 
-/* ==== photo gallery ==== */
+/* ==== photo gallery (3列-2列-1列) ==== */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 固定最多 3 列 */
-  gap: 1rem;
+  display: grid !important;                 /* 强制用 Grid，避免被旧的 Flex 覆盖 */
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 20px;
 }
+
 .gallery img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  display: block;                           /* 去掉行内空隙 */
+  object-fit: cover;                        /* 裁剪填满卡片 */
   border-radius: 12px;
-  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .gallery img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.22);
+}
+
+/* 宽度变窄时自动降为2列、1列 */
+@media (max-width: 980px) {
+  .gallery {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
 }
