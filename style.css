@@ -4,25 +4,25 @@
   --blue:#002d72;
 }
 
-/* 页面基础 */
+/* page_basic */
 html, body {
   height: 100%;
   margin: 0;
   font-family: system-ui, sans-serif;
-  background: var(--red);      /* 红色主背景 */
+  background: var(--red);      /* red background */
   color: #fff;
   overflow-x: hidden;
   position: relative;
 }
 
-/* ==== 满天繁星（高密度 + 双层视差漂移） ==== */
+/* ==== stars ==== */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.9; /* 整体亮度（0.6~1可调） */
+  opacity: 0.9;
 
   /* 两层星图：近层更亮更密，远层更暗更疏，产生深度感 */
   background-image:
@@ -63,31 +63,31 @@ body::after {
 </svg>");
   background-repeat: repeat, repeat;
 
-  /* 图块大小（越小越密；可再调小） */
+  /* background size */
   background-size: 256px 256px, 384px 384px;
 
-  /* 双层不同速度方向移动，做视差 */
+  /* animation */
   animation:
     starsNear 45s linear infinite,
     starsFar  90s linear infinite;
 }
 
-/* 近层漂移（速度快一点） */
+/* near */
 @keyframes starsNear {
   from { background-position: 0 0, 0 0; }
   to   { background-position: 1024px 1024px, 0 0; }
 }
 
-/* 远层漂移（慢而稳） */
+/* far */
 @keyframes starsFar {
   from { background-position: 0 0, 0 0; }
   to   { background-position: 0 0, -1024px 768px; }
 }
 
-/* 确保内容在星空上方 */
+/* Make sure the content is above the starry sky */
 header, main { position: relative; z-index: 1; }
 
-/* ===== 顶部横幅 ===== */
+/* ===== header ===== */
 header {
   background: var(--blue);
   color: #fff;
@@ -96,10 +96,10 @@ header {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  z-index: 1;  /* 保证在星星层上方 */
+  z-index: 1;  /* Make sure the content is above the starry sky */
 }
 
-/* 可点击的校徽 logo */
+/* logo */
 header .logo {
   height: 40px;
   width: auto;
@@ -109,10 +109,10 @@ header .logo {
 }
 header .logo:hover {
   transform: scale(1.08);
-  filter: drop-shadow(0 0 4px rgba(242,169,0,.6)); /* --gold 微光 */
+  filter: drop-shadow(0 0 4px rgba(242,169,0,.6)); /* --gold shine */
 }
 
-/* ===== 中间内容卡片 ===== */
+/* ===== context ===== */
 main {
   background: #fff;
   color: #1a1a1a;
@@ -122,10 +122,10 @@ main {
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   position: relative;
-  z-index: 1;  /* 保证在星星层上方 */
+  z-index: 1;  /* Make sure it is above the star layer */
 }
 
-/* 链接颜色与悬停 */
+/* Make sure it is above the star layer */
 a {
   color: var(--blue);
   text-decoration: none;
