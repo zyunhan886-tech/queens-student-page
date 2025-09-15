@@ -4,15 +4,67 @@
   --blue:#002d72;
 }
 
+/* 页面基础 */
 html, body {
   height: 100%;
   margin: 0;
   font-family: system-ui, sans-serif;
-  background: var(--red);   /* 整体背景是红色 */
+  background: var(--red);      /* 红色主背景 */
   color: #fff;
+  overflow-x: hidden;
 }
 
-/* 顶部横幅 */
+/* ===== 星星动画层（覆盖在红色背景之上，位于内容后面） ===== */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;                    /* top:0; right:0; bottom:0; left:0; 的简写 */
+  z-index: -1;                 /* 放在内容后面 */
+  pointer-events: none;        /* 不影响交互 */
+  background-repeat: repeat;
+  background-size: 600px 600px;
+  opacity: 0.55;               /* 星星透明度 */
+}
+
+/* 第一层星星（小而多，慢速漂移） */
+body::before {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,.9) 50%, transparent 52%),
+    radial-gradient(2px 2px at 120px 80px, rgba(255,255,255,.8) 50%, transparent 52%),
+    radial-gradient(2px 2px at 200px 150px, rgba(255,255,255,.75) 50%, transparent 52%),
+    radial-gradient(2px 2px at 340px 220px, rgba(255,255,255,.85) 50%, transparent 52%),
+    radial-gradient(2px 2px at 520px 360px, rgba(255,255,255,.8) 50%, transparent 52%),
+    radial-gradient(2px 2px at 560px 120px, rgba(255,255,255,.75) 50%, transparent 52%);
+  animation: star-drift-1 40s linear infinite;
+}
+
+/* 第二层星星（稍大，缓慢闪烁） */
+body::after {
+  background-image:
+    radial-gradient(3px 3px at 70px 50px, rgba(255,255,255,.9) 50%, transparent 52%),
+    radial-gradient(3px 3px at 260px 200px, rgba(255,255,255,.9) 50%, transparent 52%),
+    radial-gradient(3px 3px at 420px 100px, rgba(255,255,255,.9) 50%, transparent 52%),
+    radial-gradient(3px 3px at 640px 300px, rgba(255,255,255,.9) 50%, transparent 52%);
+  animation: star-drift-2 55s linear infinite, twinkle 2.5s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+/* 漂移与闪烁动画 */
+@keyframes star-drift-1 {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+  to   { background-position: 600px 600px, 400px 600px, 800px 600px, 600px 800px, 900px 700px, 700px 900px; }
+}
+@keyframes star-drift-2 {
+  from { background-position: 0 0, 0 0, 0 0, 0 0; }
+  to   { background-position: 800px 900px, 700px 700px, 900px 800px, 600px 1000px; }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+/* ===== 顶部横幅 ===== */
 header {
   background: var(--blue);
   color: #fff;
@@ -22,19 +74,20 @@ header {
   align-items: center;
 }
 
+/* 可点击的校徽 logo */
 header .logo {
-  height: 40px;   /* 你之前的高度 */
+  height: 40px;
   width: auto;
   object-fit: contain;
-  transition: transform 0.2s ease; /* 平滑过渡 */
-  cursor: pointer; /* 鼠标移上去显示小手 */
+  transition: transform 0.2s ease, filter 0.2s ease;
+  cursor: pointer;
 }
-
 header .logo:hover {
-  transform: scale(1.1); /* 鼠标移上去放大 10% */
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 4px rgba(242,169,0,.6)); /* --gold 的微光效果 */
 }
 
-/* 中间内容卡片 */
+/* ===== 中间内容卡片 ===== */
 main {
   background: #fff;
   color: #1a1a1a;
@@ -45,9 +98,14 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
-/* 链接颜色 */
+/* 链接颜色与悬停 */
 a {
   color: var(--blue);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--gold);
+  text-decoration: underline;
 }
 
 /* 标题样式 */
@@ -56,7 +114,8 @@ h2 {
   font-size: 1.6rem;
 }
 
-/* 照片样式 */
+/* 图片样式 */
 img {
   border-radius: 12px;
 }
+
