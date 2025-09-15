@@ -146,33 +146,38 @@ img {
   border-radius: 12px;
 }
 
-/* ==== photo gallery (3列-2列-1列) ==== */
+/* ==== 瀑布流相册 (Masonry) ==== */
 .gallery {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-auto-rows: 10px;     /* 每行的基准高度，越小越精细 */
   gap: 1rem;
-  grid-auto-flow: dense;   /* 关键！让图片尽量填补空隙 */
 }
 
 .gallery img {
   width: 100%;
-  height: 100%;
-  display: block;                           /* 去掉行内空隙 */
-  object-fit: cover;                        /* 裁剪填满卡片 */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  object-fit: cover;
+  display: block;
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
+/* hover 效果 */
 .gallery img:hover {
   transform: scale(1.03);
   box-shadow: 0 8px 20px rgba(0,0,0,0.22);
 }
 
-/* 宽度变窄时自动降为2列、1列 */
+/* 让图片自动跨行，撑开对应高度 */
+.gallery img {
+  grid-row-end: span 30; /* 这里的数字和高度相关，默认先给个值 */
+}
+
+/* 窄屏时自动降列数 */
 @media (max-width: 980px) {
   .gallery {
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 640px) {
